@@ -1,4 +1,5 @@
 import { Card } from './Card.jsx'
+import './App.css'
 
 const id = []
 for(let i=1; i<300; i++){
@@ -12,7 +13,7 @@ function App() {
       <main>
         {
           id.map(num=>{
-            return <Card key={num} id={num}/>
+            return <Card className='card' key={num} id={num}/>
           })
         }              
       </main>
