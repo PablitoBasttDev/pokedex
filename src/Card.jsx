@@ -19,21 +19,26 @@ export function Card({id}) {
             setTypes(data.types.map(t=>t.type.name))
         })
     },[])
-
+    
     const firstInMayusc = (str) => {
         return str.charAt(0).toUpperCase().concat(str.substring(1,str.length))
     }
 
+    const color1 = types && 'var(--'+types[0]+')'
+
     return(
-        <section className={'card'}>
-            <header className='header-card'>
-                {num&&<h3 className='id'>#{num}</h3>}
-                {nombre&&<h3 className='name'>{nombre}</h3>}
-            </header>
-                {url&&<img className='img' src={url} alt={'Imagen del pokemon numero: '+id} />}
-            <footer className='type-pokemon'>
-                <Types key={num} types={types}/>
-            </footer>
-        </section>
+        <>
+            <section className='card' style={{backgroundColor: color1}}>
+                <header className='header-card'>
+                    {num&&<h3 className='id'>#{num}</h3>}
+                    {nombre&&<h3 className='name'>{nombre}</h3>}
+                </header>
+                    {url&&<img className='img' src={url} alt={'Imagen del pokemon numero: '+id} />}
+                <footer className='type-pokemon'>
+                    <Types key={num} types={types}/>
+                </footer>
+            </section>
+        </>
+        
     )
 }
