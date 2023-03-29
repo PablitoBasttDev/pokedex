@@ -1,3 +1,9 @@
+#root{
+    margin: 0;
+    padding: 10px 100px;
+    background-image: url('./img/cool-background.png');
+    box-shadow: 0 0 20px 0.1px;
+}
 main{
     max-width: 800px;
     display: flex;
@@ -12,18 +18,26 @@ main{
 }
 
 @media screen and (max-width: 800px) {
+    #root{
+        display: flex;
+        justify-content: center;
+        width: 80%;
+        margin:0;
+    }
+    
     main{
         justify-content: space-around;
     }
     .card {
-      width: calc(30% - 10px); /* Ancho del card (33.33% de 3 tarjetas por fila) */
+        width: calc(30% - 10px); /* Ancho del card (33.33% de 3 tarjetas por fila) */
+        gap: 5px;
     }
   }
   
   @media screen and (max-width: 480px) {
     .card {
-      width: 80%; /* Ancho del card al 100% */
-      margin: 20px;
+        width: calc(50% - 10px); /* Ancho del card al 100% */
+        margin: 20px;
     }
   }
   

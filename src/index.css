@@ -2,4 +2,10 @@ body{
     display: flex;
     justify-content: center;
     font-family: system-ui;
+    background-color: #eee;
+    margin: 0;
+    background-image: url('./img/cool-background.png');
+    background-attachment: fixed;
+    backdrop-filter: blur(5px);
 }
+

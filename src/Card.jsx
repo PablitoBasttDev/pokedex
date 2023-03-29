@@ -25,11 +25,14 @@ export function Card({id}) {
     }
 
     const color1 = types && 'var(--'+types[0]+')'
+    const color2 = types && 'var(--'+types[1]+')'
+    const styleHeader = types&&(types[1]?{backgroundColor: color2}:{backgroundColor: color1, filter: 'brightness(1.1)'})
+
 
     return(
         <>
             <section className='card' style={{backgroundColor: color1}}>
-                <header className='header-card'>
+                <header className='header-card' style={styleHeader}>
                     {num&&<h3 className='id'>#{num}</h3>}
                     {nombre&&<h3 className='name'>{nombre}</h3>}
                 </header>

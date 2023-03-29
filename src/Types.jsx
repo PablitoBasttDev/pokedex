@@ -1,8 +1,7 @@
 import './Types.css'
 
 export function Types({types}){
-    
-    
+        
     return(
         <>
             {types && types.map(t=>{
