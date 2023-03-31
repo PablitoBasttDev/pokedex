@@ -35,9 +35,27 @@ main{
   }
   
   @media screen and (max-width: 480px) {
+    #root{
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+    
     .card {
-        width: calc(50% - 10px); /* Ancho del card al 100% */
-        margin: 20px;
+        min-width: 160px;
+        gap: 3px;
+        width: calc(100px - 10px); /* Ancho del card al 100% */
+    }
+
+    .header-card::after {
+        height: 50px;
+        width: 80px; 
+        transform: translate(40px,95px);
+    }
+    .card::after{
+        height: 50px;
+        width: 80px; 
+        transform: translate(-40px,5px);
     }
   }
   

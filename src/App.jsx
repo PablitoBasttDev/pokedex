@@ -1,18 +1,28 @@
 import { Card } from './Card.jsx'
+import { useState } from 'react'
 import './App.css'
 
-const id = []
-for(let i=1; i<300; i++){
-  id.push(i)
+const initialsArg = [1,152,252,387,495,650,722,810]
+const initials = (arr) => {
+  const respuesta = []
+  for(let i=0;i<arr.length;i++){
+    const num = arr[i]
+    respuesta.push(num)
+    for(let j=1; j<8; j++){
+      respuesta.push(num+j)
+    }
+  }
+  return respuesta
 }
-console.log(id)
 
 function App() {
-  
+
+    const [render, setRender] = useState(initials(initialsArg))
+
     return(
       <main>
         {
-          id.map(num=>{
+          render.map(num=>{
             return <Card className='card' key={num} id={num}/>
           })
         }              
