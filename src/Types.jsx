@@ -1,23 +1,29 @@
 import './Types.css'
 
-export function Types({types}){
-    
+export function Types({types, cardType}){
+
     const styleColor = (t) =>{
         return 'var(--'+t+')'
     }
 
+    const handleClick = (type) => {
+        cardType(type)
+    }
 
     return(
         <>
-            {types && types.map(t=>{
-                return(
-                    <h5 
-                        className={'type'} 
-                        style={{backgroundColor: styleColor(t)}} 
-                    >
-                        {t.toUpperCase()}
-                    </h5>
-                )
+            {types && 
+                types.map((t,i)=>{
+                    return(
+                        <h5 
+                            key={i}
+                            onClick={() => handleClick(t)}
+                            className={'type'} 
+                            style={{backgroundColor: styleColor(t)}} 
+                        >
+                            {t.toUpperCase()}
+                        </h5>
+                    )
             })}
         </> 
     )
