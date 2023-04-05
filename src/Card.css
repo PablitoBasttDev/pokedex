@@ -49,11 +49,13 @@
     flex-direction: row;
     width: 100%;
     height: 120px;
-    border-radius: 10px 10px 0 0;
+    border-radius: 8px 8px 0 0;
     justify-content: space-around;
     align-items: start;
     margin-bottom: 60px;
 }
+
+
 .header-card::after {
     content: '';
     position: absolute;
@@ -73,6 +75,12 @@
     display: grid;
     place-items: center;
     border-radius: 50%;
+}
+
+.header-card .id.shiny{
+    background-color: #ffbf00;
+    box-shadow: 0 0 8px 2px #000;
+    color: #000;
 }
 
 .header-card h3:nth-of-type(2){
@@ -102,3 +110,7 @@
     z-index: 20;
 }
 
+.img:hover{
+    cursor: pointer;
+    filter: drop-shadow(5px 5px 3px #000)
+}

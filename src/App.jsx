@@ -1,5 +1,6 @@
 import { Card } from './Card.jsx'
 import { CardType } from './CardType.jsx'
+import { Search } from './Search.jsx'
 import { useEffect, useState } from 'react'
 import './App.css'
 
@@ -61,30 +62,48 @@ function App() {
       setDataCardType()
     }
 
+    function searchRender(arr){
+      
+      setRender(arr)
+    }
+
+    function initialsRender(){
+      setRender(initials(initialsArg))
+    }
+
     return(
-      <main>
-        {
-          render.map(num=>{
-            return (
-              <Card 
-                className='card' 
-                key={num} 
-                id={num}
-                cardType={cardType}
-              />
-            )
-          })
-        }
-        {
-          dataCardType && 
-          <CardType 
-            key={dataCardType.name[0]} 
-            dataCardType={dataCardType}
-            cardType={cardType}
-            buttonClose={buttonClose}
+      <>
+        <header className='header-app'>
+          <Search 
+            searchRender={searchRender}
+            initialsRender={initialsRender}
           />
-        }              
-      </main>
+        </header>
+        <main className='main'>
+          {
+            render.map(num=>{
+              return (
+                <Card 
+                  className='card' 
+                  key={num} 
+                  id={num}
+                  cardType={cardType}
+                />
+              )
+            })
+          }
+          {
+            dataCardType && 
+            <CardType 
+              key={dataCardType.name[0]} 
+              dataCardType={dataCardType}
+              cardType={cardType}
+              buttonClose={buttonClose}
+            />
+          }              
+        </main>
+      </>
+      
     )     
 }
 

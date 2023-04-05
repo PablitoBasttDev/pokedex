@@ -4,12 +4,19 @@
     background-image: url('./img/cool-background.png');
     box-shadow: 0 0 20px 0.1px;
 }
-main{
+
+.header-app{
+    max-width: 800px;
+}
+
+.main{
     max-width: 800px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 }
+
+
 
 .card{
     min-width: 180px;
@@ -60,6 +67,21 @@ main{
         height: 50px;
         width: 80px; 
         transform: translate(-40px,5px);
+    }
+    .card-type.card{
+        margin-top: -2vh;
+        width: 300px;
+        transform: translate(-150px)
+    }
+    .datos-categoria{
+        font-size: 9px;
+    }
+    .datos-tipos{
+        font-size: 10px;
+        padding: 0;
+    }
+    .cerrar-card-type{
+        transform: translate(120px,-5px)
     }
   }
   

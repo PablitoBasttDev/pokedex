@@ -1,22 +1,30 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Types } from './Types.jsx'
 import './Card.css'
 
 const DATA_POKEMON = 'https://pokeapi.co/api/v2/pokemon/'
 
 export function Card({id, cardType}) {
-    const num = id;
+    
+    const nameOrId = id;
+
+    const [num, setNum] = useState()
     const [nombre, setNombre] = useState()
     const [url, setUrl] = useState()
     const [types, setTypes] = useState()
+    const [urlShiny, setUrlShiny] = useState()
+    const [shiny,setShiny] = useState(false)
 
+    const accederId = useRef(null)
     
     useEffect(()=>{
-        fetch(`${DATA_POKEMON}${num}`)
+        fetch(`${DATA_POKEMON}${nameOrId}`)
         .then(res=>res.json())
         .then(data=> {
+            setNum(data.id)
             setNombre(firstInMayusc(data.species.name))
             setUrl(data.sprites.front_default)
+            setUrlShiny(data.sprites.front_shiny)
             setTypes(data.types.map(t=>t.type.name))
         })
         .catch(error=>console.log(error))
@@ -42,6 +50,13 @@ export function Card({id, cardType}) {
         return styleHeader
     }
 
+    function isShiny(){
+        setShiny(!shiny)
+        shiny 
+            ? accederId.current.classList.remove('shiny')
+            : accederId.current.classList.add('shiny')
+    }
+
     return(
         <>
             <section 
@@ -53,7 +68,10 @@ export function Card({id, cardType}) {
                     style={colorHeader(types)}
                 >
                     {num && 
-                        <h3 className='id'>
+                        <h3 
+                            className='id'
+                            ref={accederId}
+                        >
                             #{num}
                         </h3>
                     }
@@ -63,9 +81,10 @@ export function Card({id, cardType}) {
                 </header>
                     {url && 
                         <img 
+                            onClick={isShiny}
                             className='img' 
-                            src={url}
-                            alt={'Imagen del pokemon numero: '+id} 
+                            src={urlShiny? (shiny ? urlShiny : url) : url}
+                            alt={'Imagen del pokemon numero: '+num} 
                         />
                     }
                 <footer className='type-pokemon'>
