@@ -2,12 +2,10 @@ import './Search.css'
 import { Types } from './Types.jsx'
 import { useState, useEffect } from 'react'
 
-
-
-const URL_ALL_POKEMON = 'https://pokeapi.co/api/v2/pokemon?limit=1000&offset=0'
+const URL_ALL_POKEMON = 'https://pokeapi.co/api/v2/pokemon?limit=901&offset=0'
 const URL_POKEMON_TYPE = 'https://pokeapi.co/api/v2/type/'
-
-
+const generationsArg = [1,152,252,387,495,650,722,810,1000]
+const generationsId = [1,2,3,4,5,6,7,8] 
 
 export function Search({searchRender,initialsRender}){
 
@@ -17,11 +15,14 @@ export function Search({searchRender,initialsRender}){
     const [input, setInput] = useState()
     const [type, setType] = useState()
     const [show, setShow] = useState(false)
+    const [generation, setGeneration] = useState()
+    const [genSelected, setGenSelected] = useState()
 
     useEffect(()=>{
         fetch(URL_ALL_POKEMON)
         .then(res=>res.json())
-        .then(data=>setAllPokemon(data.results.map(d=>d.name)))
+        .then(data=>
+            setAllPokemon(data.results.map(d=>d.name)))
         .catch(error=>console.log(error))
     },[])
 
@@ -35,14 +36,27 @@ export function Search({searchRender,initialsRender}){
     useEffect(()=>{
             fetch(URL_POKEMON_TYPE+type)
             .then(res=>res.json())
-            .then(data=>setPokemonsOfType(data.pokemon.map(d=>d.pokemon.name)))
+            .then(data=>
+                setPokemonsOfType(data.pokemon
+                    .map(d=> parseInt(d.pokemon.url
+                        .split('/').slice(-2,-1)[0]))
+                        .filter(p=>p<=901)))
             .catch(error=>console.log(error))
     },[type])
 
+
+    //envia los pokemons seleccionados por tipo al App.jsx
+    // también filtra los pokemons de dicho tipo viendo que 
+    //aparezcan en allPokemons(lista de los primeros 1000)
     useEffect(()=>{
-        pokemonsOfType&&
-        searchRender(pokemonsOfType.filter(elm=>allPokemon.includes(elm)))
-    },[pokemonsOfType])
+        if(pokemonsOfType&&generation){
+            searchRender(pokemonsOfType.filter(p=>generation.includes(p)))
+        } else if(pokemonsOfType){
+            searchRender(pokemonsOfType)
+        } else if(generation){
+            searchRender(generation)
+        }
+    },[pokemonsOfType,generation])
 
     function handleInputChange (event) {
         setInput(event.target.value.toLowerCase())
@@ -57,6 +71,9 @@ export function Search({searchRender,initialsRender}){
     function initials(){
         initialsRender()
         setInput('')
+        resetGenerations()
+        setPokemonsOfType(undefined)
+        setGenSelected(undefined)
     }
 
     function cardType(t){
@@ -67,8 +84,28 @@ export function Search({searchRender,initialsRender}){
         setShow(!show)
     }
 
+    function selectGeneration(g,event){
+        let start = generationsArg[g-1]
+        let end = generationsArg[g]
+        let arr = [];
+        for(let i=start; i<=end; i++){
+            arr.push(i);
+        }
+        setGeneration(arr)
+        if(genSelected){
+            genSelected.style.border='2px solid #fff'
+        }
+        event.target.style.border='2px solid var(--fighting)'
+        setGenSelected(event.target)
+    }
+
+    const resetGenerations = () => {
+        setGeneration(Array.from(Array(901 - 1 + 1).keys(), num => num + 1))
+        genSelected.style.border='2px solid #fff'
+    }
+
     return(
-        <div className='search-component'>
+        <header className='search-component'>
             <section className='search-bar'>
                 <aside className='search-logo'>
                     <img
@@ -79,12 +116,13 @@ export function Search({searchRender,initialsRender}){
                     
                 </aside>
                 <form className='search-form'>
-                    <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" strokeLinejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                            <circle cx="10" cy="10" r="7" />
-                            <line x1="21" y1="21" x2="15" y2="15" />
-                        </svg>
+                        <div className='lupa'>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" strokeLinejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <circle cx="10" cy="10" r="7" />
+                                <line x1="21" y1="21" x2="15" y2="15" />
+                            </svg>
+                        </div>
                         <input 
                             className='search-input'
                             type='text'
@@ -94,6 +132,16 @@ export function Search({searchRender,initialsRender}){
                             list='nombres'
                         >  
                         </input>
+                        <div 
+                            onClick={initials}
+                            className='refresh'
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-refresh" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
+                            <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
+                            </svg>
+                        </div>
                         { input &&
                             <datalist 
                                 id='nombres'
@@ -109,17 +157,6 @@ export function Search({searchRender,initialsRender}){
                                 }
                             </datalist>
                         }
-                        <div 
-                            onClick={initials}
-                            className='refresh'
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-refresh" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                            <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
-                            <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
-                            </svg>
-                        </div>
-                    </div>
                 </form>
             </section>
             {show &&
@@ -128,6 +165,24 @@ export function Search({searchRender,initialsRender}){
                         types={allTypes}
                         cardType={cardType}
                     />
+                </section>                
+            }
+            {
+                show && 
+                <section className='generations'>
+                    {generationsId.map(g=>{
+                        return (
+                                <h3
+                                    className='generation-button'
+                                    onClick={(event)=>selectGeneration(g,event)}
+                                >{'GENERATION '+g}</h3>
+                        )
+                    })}
+                    <h3 
+                        className='generation-button'
+                        onClick={resetGenerations}
+                    >ALL GENERATIONS
+                    </h3>
                 </section>
             }
             <div 
@@ -155,7 +210,7 @@ export function Search({searchRender,initialsRender}){
               </svg>
             }
             </div>
-        </div>
+        </header>
         
     )
 }

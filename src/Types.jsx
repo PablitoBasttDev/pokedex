@@ -10,7 +10,7 @@ export function Types({types, cardType}){
         cardType(type)
         window.scrollTo(0,0)
     }
-    
+
     return(
         <>
             {types && 
@@ -18,9 +18,9 @@ export function Types({types, cardType}){
                     return(
                         <h5 
                             key={i}
-                            onClick={() => handleClick(t)}
+                            onClick={(event) => handleClick(t,event)}
                             className='type' 
-                            style={{backgroundColor: styleColor(t)}} 
+                            style={{backgroundColor: styleColor(t)}}
                         >
                             {t.toUpperCase()}
                         </h5>

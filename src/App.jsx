@@ -63,7 +63,7 @@ function App() {
     }
 
     function searchRender(arr){
-      
+      console.log(arr)
       setRender(arr)
     }
 
@@ -73,12 +73,12 @@ function App() {
 
     return(
       <>
-        <header className='header-app'>
+        
           <Search 
             searchRender={searchRender}
             initialsRender={initialsRender}
           />
-        </header>
+
         <main className='main'>
           {
             render.map(num=>{

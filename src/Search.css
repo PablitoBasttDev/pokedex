@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 .search-bar{
@@ -13,33 +14,45 @@
 .search-logo{
     width: 50%;
 }
+
 .logo-pokedex{
     width: 100%;
 }
 
-.search-bar div svg{
-    position: absolute;
-    width: 20px;
-    height: 35px;
-    transform: translateX(10px)
+.search-form{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 400px;
 }
 
-.search-form{
-    width: 100%;
+.search-form div svg{
+    display: flex;
+    align-items: center;
+    width: 30px;
+    height: 35px;
+    margin: 0;
+    padding: 0;
 }
 
 .search-input{
+    min-width: 300px;
     width: 90%;
     height: 30px;
     border-radius: 30px;
     border: 2px solid #777;
-    padding-left: 40px;
+    padding-left: 10px;
 }
 
 .search-input:focus{
     border-color: var(--fighting);
     box-shadow: 0 0 2px 1px #777;
     outline: none;
+}
+
+.refresh:hover{
+    cursor: pointer;
+    filter: drop-shadow(0 0 1px #999)
 }
 
 #nombres{
@@ -68,22 +81,39 @@
     background-color: rgb(182, 197, 220);
 }
 
-.refresh{
-    width: 30px;
-    height: 30px;
-    position: absolute;
-    transform: translate(470px,-35.5px)
-}
-.refresh:hover{
-    cursor: pointer;
-    filter: drop-shadow(0 0 1px #999)
-}
-
 .all-types{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     margin: 15px 0;
+}
+
+.generations{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    height: auto;
+    gap: 5px;
+}
+
+.generations h3{
+    display: flex;
+    justify-content: center;
+    width: auto;
+    padding: 5px;
+    margin: 3px;
+    border-radius: 30px;
+    border: 2px solid #fff;
+    font-size: 12px;
+    background-color: #555;
+    color: #fff;
+    box-shadow: 0 0 5px 2px rgba(0,0,0,0.5)
+}
+
+.generations h3:hover{
+    cursor: pointer;
+    box-shadow: 0 0 5px 2px rgba(255,255,255,1);
+    transition: 0.3s;
 }
 
 .arrow-button{
@@ -95,7 +125,7 @@
     background-color: var(--fighting);
     border-radius: 5px;
     color: #fff;
-    margin-bottom: 20px;
+    margin: 10px 0 20px 0;
 }
 
 .arrow-button:hover{

@@ -5,18 +5,17 @@
     box-shadow: 0 0 20px 0.1px;
 }
 
-.header-app{
+.search-component{
     max-width: 800px;
 }
+
 
 .main{
     max-width: 800px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around;
 }
-
-
 
 .card{
     min-width: 180px;
@@ -28,6 +27,7 @@
     #root{
         display: flex;
         justify-content: center;
+        flex-direction: column;
         width: 80%;
         margin:0;
     }
@@ -39,15 +39,100 @@
         width: calc(30% - 10px); /* Ancho del card (33.33% de 3 tarjetas por fila) */
         gap: 5px;
     }
+    .search-component{
+        font-size: 14px;
+    }
+
+    .search-input{
+        min-width: 150px;
+    }
+
+    .search-logo{
+        min-width: 200px;
+        width: 30%;
+    }
+    .search-form{
+        width: 70%;
+    }
+
+    .search-form div svg{
+        width: 20px;
+    }
+
+    .generations{
+        flex-wrap: wrap;
+    }
+
+    .generations h3{
+        font-size: 10px;
+    }
   }
   
   @media screen and (max-width: 480px) {
     #root{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         margin: 0;
         padding: 0;
         width: 100%;
     }
+
+    .search-component{
+        margin-top: 10px;
+    }
     
+    .search-bar{
+        width: 90%;
+        gap: 5px;
+    }
+
+    .search-logo{
+        min-width: 120px;
+    }
+
+    .logo-pokedex{
+        width: 100%;
+    }
+
+    .search-form{
+        width: 200px;
+        gap: 5px;
+        align-items: center;
+    }
+
+    .search-input{
+        min-width: 140px;
+        height: 20px;
+    }
+
+    .search-form div svg{
+        width: 15px;
+    }
+
+    ::placeholder{
+        font-size: 8px;
+    }
+
+    .all-types{
+        margin: 10px;
+        font-size: 10px;
+    }
+
+    .generations{
+        margin: 0;
+        gap: 2px;
+    }
+
+    .generations h3{
+        font-size: 8px;
+    }
+
+    .arrow-button{
+        width: 20px;
+        height: 20px;
+    }
+
     .card {
         min-width: 160px;
         gap: 3px;
