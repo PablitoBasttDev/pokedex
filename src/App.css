@@ -59,6 +59,13 @@
         width: 20px;
     }
 
+    #nombres{
+        min-width: 200px;
+        max-height: 100px;
+        min-height: 100px;
+        transform: translate(25px,70px)
+    }
+
     .generations{
         flex-wrap: wrap;
     }
@@ -108,6 +115,13 @@
 
     .search-form div svg{
         width: 15px;
+    }
+
+    #nombres{
+        min-width: 100px;
+        max-height: 100px;
+        min-height: 100px;
+        transform: translate(25px,70px)
     }
 
     ::placeholder{

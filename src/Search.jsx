@@ -110,7 +110,7 @@ export function Search({searchRender,initialsRender}){
                 <aside className='search-logo'>
                     <img
                         className='logo-pokedex' 
-                        src='../src/img/pokedex-logo.png' 
+                        src='https://i.postimg.cc/9MZLVn40/pokedex-logo.png' 
                         alt='Logo de la pokedex'
                     />
                     
