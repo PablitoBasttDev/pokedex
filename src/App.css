@@ -91,7 +91,7 @@
     
     .search-bar{
         width: 90%;
-        gap: 5px;
+        justify-content: space-between;
     }
 
     .search-logo{
