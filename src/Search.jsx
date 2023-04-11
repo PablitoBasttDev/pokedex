@@ -69,11 +69,12 @@ export function Search({searchRender,initialsRender}){
     }
 
     function initials(){
-        initialsRender()
         setInput('')
-        resetGenerations()
-        setPokemonsOfType(undefined)
-        setGenSelected(undefined)
+        initialsRender()
+        genBorderWhite()
+        setGeneration()
+        setPokemonsOfType()
+        setGenSelected()
     }
 
     function cardType(t){
@@ -93,7 +94,7 @@ export function Search({searchRender,initialsRender}){
         }
         setGeneration(arr)
         if(genSelected){
-            genSelected.style.border='2px solid #fff'
+            genBorderWhite()
         }
         event.target.style.border='2px solid var(--fighting)'
         setGenSelected(event.target)
@@ -101,6 +102,10 @@ export function Search({searchRender,initialsRender}){
 
     const resetGenerations = () => {
         setGeneration(Array.from(Array(901 - 1 + 1).keys(), num => num + 1))
+        genBorderWhite()
+    }
+
+    const genBorderWhite = () =>{
         genSelected.style.border='2px solid #fff'
     }
 
